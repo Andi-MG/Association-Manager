@@ -16,7 +16,8 @@ Run project locally
 Deploy to firebase
 > firebase deploy
 
-## Firebase
+## Useful firebase commands
 > firebase login
 > firebase login --reauth
-> firebase deplou
+> firebase hosting:channel:deploy preview_name
+> firebase deploy

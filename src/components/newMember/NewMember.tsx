@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../firebaseConfig";
 
 interface Member {
   firstName: string;
@@ -12,6 +14,7 @@ const CreateMemberForm: React.FC = () => {
     lastName: "",
     email: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -20,22 +23,26 @@ const CreateMemberForm: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (isSubmitting) {
+      console.log("Request already in progress:", member);
+      return;
+    }
+    setIsSubmitting(true);
     console.log("Calling to add new member data:", member);
     try {
-      const response = await fetch('/api/members', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(member),
+      const docRef = await addDoc(collection(db, "members"), member);
+      console.log("Member added to db with ID:", docRef.id);
+      setMember({
+        firstName: "",
+        lastName: "",
+        email: ""
       });
-
-      if (response.ok) {
-        console.log("Member added to db:", member);
-      } else {
-        console.error('Something went wrong');
-      }
     } catch (error) {
       console.error('Error adding member:', error);
+    } finally {
+      setIsSubmitting(false);
     }
+
   };
 
   return (

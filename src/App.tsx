@@ -1,15 +1,18 @@
 import './App.css'
-import CreateUserForm from "./components/newMember/NewMember.tsx";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginForm from "./components/login/Login.tsx";
+import Dashboard from "./components/dashboard/Dashboard.tsx";
+
 
 function App() {
 
   return (
-    <>
-      <h1>Association manager</h1>
-      <div className="card">
-        <CreateUserForm></CreateUserForm>
-      </div>
-    </>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LoginForm />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </Router>
   )
 }
 

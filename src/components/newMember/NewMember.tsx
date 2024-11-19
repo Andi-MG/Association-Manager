@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
+import "./NewMember.css";
 
 interface Member {
   firstName: string;
@@ -42,12 +43,15 @@ const CreateMemberForm: React.FC = () => {
     } finally {
       setIsSubmitting(false);
     }
+  };
 
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    handleSubmit(event).catch(console.error);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="firstName">First Name:</label>
+    <form onSubmit={handleFormSubmit}>
+      <label htmlFor="firstName">First Name</label>
       <input
         type="text"
         id="firstName"
@@ -57,7 +61,7 @@ const CreateMemberForm: React.FC = () => {
       />
       <br />
 
-      <label htmlFor="lastName">Last Name:</label>
+      <label htmlFor="lastName">Last Name</label>
       <input
         type="text"
         id="lastName"
@@ -67,7 +71,7 @@ const CreateMemberForm: React.FC = () => {
       />
       <br />
 
-      <label htmlFor="email">Email:</label>
+      <label htmlFor="email">Email</label>
       <input
         type="email"
         id="email"

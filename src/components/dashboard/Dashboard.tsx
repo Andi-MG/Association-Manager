@@ -1,6 +1,7 @@
 import React from "react";
 import CreateUserForm from "../newMember/NewMember.tsx";
 import './Dashboard.css';
+import MemberList from "../memberList/MemberList.tsx";
 
 const Dashboard: React.FC = () => {
   return (
@@ -10,7 +11,7 @@ const Dashboard: React.FC = () => {
           <CreateUserForm></CreateUserForm>
         </div>
         <div className="dashboard-card">
-          <CreateUserForm></CreateUserForm>
+          <MemberList></MemberList>
         </div>
       </div>
   );

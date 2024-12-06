@@ -1,7 +1,6 @@
-import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {signInWithEmailAndPassword} from "firebase/auth";
-import {auth} from "../../firebaseConfig";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { signIn } from "../../adapters/auth/authService";
 import "./Login.css";
 
 const LoginForm: React.FC = () => {
@@ -14,21 +13,21 @@ const LoginForm: React.FC = () => {
     event.preventDefault();
     setError(null);
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log("User signed in:", userCredential.user);
+      const user = await signIn(email, password);
+      console.log("User signed in:", user);
       navigate("/dashboard");
     } catch (error) {
       setError("Failed to sign in. Please check your email and password.");
       console.error("Error signing in:", error);
     }
   };
+
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     handleSubmit(event).catch(console.error);
   };
 
   return (
       <div className="login-card">
-
         <form onSubmit={handleFormSubmit}>
           <label htmlFor="email">Email:</label>
           <input
@@ -36,26 +35,19 @@ const LoginForm: React.FC = () => {
               id="email"
               name="email"
               value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
+              onChange={(e) => setEmail(e.target.value)}
           />
-          <br/>
-
+          <br />
           <label htmlFor="password">Password:</label>
           <input
               type="password"
               id="password"
               name="password"
               value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              onChange={(e) => setPassword(e.target.value)}
           />
-          <br/>
-
-          {error && <p style={{color: "red"}}>{error}</p>}
-
+          <br />
+          {error && <p style={{ color: "red" }}>{error}</p>}
           <button type="submit">Login</button>
         </form>
       </div>

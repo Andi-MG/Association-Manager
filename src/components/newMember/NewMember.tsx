@@ -1,16 +1,10 @@
 import React, { useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../firebaseConfig";
+import { addMember } from "../../adapters/persistance/persistanceService";
 import "./NewMember.css";
-
-interface Member {
-  firstName: string;
-  lastName: string;
-  email: string;
-}
+import { NewMember } from "../../ports/member";
 
 const CreateMemberForm: React.FC = () => {
-  const [member, setMember] = useState<Member>({
+  const [member, setMember] = useState<NewMember>({
     firstName: "",
     lastName: "",
     email: ""
@@ -31,8 +25,8 @@ const CreateMemberForm: React.FC = () => {
     setIsSubmitting(true);
     console.log("Calling to add new member data:", member);
     try {
-      const docRef = await addDoc(collection(db, "members"), member);
-      console.log("Member added to db with ID:", docRef.id);
+      await addMember(member);
+      console.log("Member added to db");
       setMember({
         firstName: "",
         lastName: "",
@@ -50,39 +44,39 @@ const CreateMemberForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <label htmlFor="firstName">First Name</label>
-      <input
-        type="text"
-        id="firstName"
-        name="firstName"
-        value={member.firstName}
-        onChange={handleChange}
-      />
-      <br />
+      <form onSubmit={handleFormSubmit}>
+        <label htmlFor="firstName">First Name</label>
+        <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            value={member.firstName}
+            onChange={handleChange}
+        />
+        <br />
 
-      <label htmlFor="lastName">Last Name</label>
-      <input
-        type="text"
-        id="lastName"
-        name="lastName"
-        value={member.lastName}
-        onChange={handleChange}
-      />
-      <br />
+        <label htmlFor="lastName">Last Name</label>
+        <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            value={member.lastName}
+            onChange={handleChange}
+        />
+        <br />
 
-      <label htmlFor="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        value={member.email}
-        onChange={handleChange}
-      />
-      <br />
+        <label htmlFor="email">Email</label>
+        <input
+            type="email"
+            id="email"
+            name="email"
+            value={member.email}
+            onChange={handleChange}
+        />
+        <br />
 
-      <button type="submit">Create Member</button>
-    </form>
+        <button type="submit">Create Member</button>
+      </form>
   );
 };
 

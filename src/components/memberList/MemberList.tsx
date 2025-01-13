@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchMembers } from "../../adapters/persistance/persistanceService.ts";
-import MemberComponent from "../Member/Member";
-import { Member } from "../../ports/member";
+import MemberComponent from "../member/Member";
+import { Member } from "../../ports/memberTypes.ts";
 
 
 

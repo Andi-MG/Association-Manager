@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { addMember } from "../../adapters/persistance/persistanceService";
 import "./NewMember.css";
-import { NewMember } from "../../ports/member";
+import { NewMember } from "../../ports/memberTypes.ts";
 
 const CreateMemberForm: React.FC = () => {
   const [member, setMember] = useState<NewMember>({

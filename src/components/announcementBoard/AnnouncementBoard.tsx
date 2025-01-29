@@ -30,7 +30,7 @@ const AnnouncementBoard: React.FC = () => {
 
   return (
       <div>
-        <h2>Announcements</h2>
+        <h1>Announcements</h1>
         <ul>
           {announcements.map(announcement => (
               <AnnouncementComponent key={announcement.id} {...announcement} />

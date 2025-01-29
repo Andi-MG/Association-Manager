@@ -2,3 +2,32 @@
   width: 80vw;
   margin: 0 auto;
 }
+
+.dashboard-card {
+  width: 40%;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 14px 28px, rgba(0, 0, 0, 0.22) 0 10px 10px;
+  padding: 2em;
+  margin: 5px;
+  background-color: #080710;
+  text-align: left;
+  align-content: center;
+  display: inline-block;
+}
+
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.ReactModal__Content {
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  margin-right: -50% !important;
+  transform: translate(-50%, -50%) !important;
+  padding: 20px !important;
+  border-radius: 10px !important;
+  background-color: #080710 !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}

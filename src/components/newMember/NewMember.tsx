@@ -1,19 +1,23 @@
-import React, { useState } from "react";
-import { addMember } from "../../adapters/persistance/persistanceService";
-import "./NewMember.css";
-import { NewMember } from "../../ports/memberTypes.ts";
+import React, {useState} from "react";
+import {addMember} from "../../adapters/persistance/persistanceService";
+import {NewMember} from "../../ports/memberTypes.ts";
 
 const CreateMemberForm: React.FC = () => {
   const [member, setMember] = useState<NewMember>({
+    alias: "",
     firstName: "",
     lastName: "",
-    email: ""
+    email: "",
+    telephone: "",
+    role: 0,
+    active: false,
+    hasKey: false
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setMember((prevMember) => ({ ...prevMember, [name]: value }));
+    const {name, value} = event.target;
+    setMember((prevMember) => ({...prevMember, [name]: value}));
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -28,9 +32,14 @@ const CreateMemberForm: React.FC = () => {
       await addMember(member);
       console.log("Member added to db");
       setMember({
+        alias: "",
         firstName: "",
         lastName: "",
-        email: ""
+        email: "",
+        telephone: "",
+        role: 0,
+        active: false,
+        hasKey: false
       });
     } catch (error) {
       console.error('Error adding member:', error);
@@ -45,6 +54,16 @@ const CreateMemberForm: React.FC = () => {
 
   return (
       <form onSubmit={handleFormSubmit}>
+        <label htmlFor="alias">Alias</label>
+        <input
+            type="text"
+            id="alias"
+            name="alias"
+            value={member.alias}
+            onChange={handleChange}
+        />
+        <br/>
+
         <label htmlFor="firstName">First Name</label>
         <input
             type="text"
@@ -53,7 +72,7 @@ const CreateMemberForm: React.FC = () => {
             value={member.firstName}
             onChange={handleChange}
         />
-        <br />
+        <br/>
 
         <label htmlFor="lastName">Last Name</label>
         <input
@@ -63,7 +82,7 @@ const CreateMemberForm: React.FC = () => {
             value={member.lastName}
             onChange={handleChange}
         />
-        <br />
+        <br/>
 
         <label htmlFor="email">Email</label>
         <input
@@ -73,7 +92,21 @@ const CreateMemberForm: React.FC = () => {
             value={member.email}
             onChange={handleChange}
         />
-        <br />
+        <br/>
+
+        <label htmlFor="role">Role</label>
+        <input list="roles" name="role" onChange={handleChange}/>
+        <datalist id="roles">
+          <option key='0' value="Member"/>
+          <option key='1' value="President"/>
+          <option key='2' value="VicePresident"/>
+          <option key='3' value="Secretary"/>
+          <option key='4' value="Treasurer"/>
+          <option key='5' value="InChargeOfBoardgames"/>
+          <option key='6' value="InChargeOfWargames"/>
+          <option key='7' value="InChargeOfRoleplayingGames"/>
+        </datalist>
+        <br/>
 
         <button type="submit">Create Member</button>
       </form>

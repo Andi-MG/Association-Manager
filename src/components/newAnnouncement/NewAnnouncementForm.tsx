@@ -12,8 +12,9 @@ const NewAnnouncementForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement> ) => {
-    const { name, value } = event.target;
-    setAnnouncement((prevAnnouncement) => ({ ...prevAnnouncement, [name]: value }));
+    const { name, type, value } = event.target;
+    const checked = (event.target as HTMLInputElement).checked;
+    setAnnouncement((prevAnnouncement) => ({ ...prevAnnouncement, [name]: type === "checkbox" ? checked : value }));
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -53,6 +54,7 @@ const NewAnnouncementForm: React.FC = () => {
             name="title"
             value={announcement.title}
             onChange={handleChange}
+            required
         />
         <br/>
 
@@ -62,10 +64,11 @@ const NewAnnouncementForm: React.FC = () => {
             name="content"
             value={announcement.content}
             onChange={handleChange}
+            required
         />
         <br/>
 
-        <label htmlFor="imgUrl">Image Url</label>
+        <label htmlFor="imgUrl">Image Url (optional)</label>
         <input
             type="url"
             id="imgUrl"

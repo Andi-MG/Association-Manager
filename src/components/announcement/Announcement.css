@@ -1,5 +1,4 @@
-.dashboard-card {
-  width: 40%;
+.announcement {
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.25) 0 14px 28px, rgba(0, 0, 0, 0.22) 0 10px 10px;
   padding: 2em;
@@ -7,6 +6,4 @@
   background-color: #080710;
   text-align: left;
   align-content: center;
-  display: inline-block;
 }
-

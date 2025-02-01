@@ -21,3 +21,7 @@ Deploy to firebase
 > firebase login --reauth
 > firebase hosting:channel:deploy preview_name
 > firebase deploy
+
+## Capacitor commands
+> npx cap sync 
+> npx cap open android

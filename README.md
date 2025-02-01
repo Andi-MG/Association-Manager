@@ -1,5 +1,5 @@
 # Association Manager
-This project is using React with TypeScript and Vite, and it's hosted on Firebase.
+This project is using React with TypeScript and Vite, and it's hosted on Firebase. It also uses Capacitor to generate the Android app.
 
 
 ## Commands
